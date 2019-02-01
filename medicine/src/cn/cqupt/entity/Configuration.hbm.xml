@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!-- 1 配置类和表对应 
+		class标签
+		name属性：实体类全路径
+		table属性：数据库表名称
+	-->
+	<class name="cn.cqupt.entity.Configuration" table="configuration">
+		<id name="configId" column="ConfigId">
+			<generator class="native"></generator>
+		</id>
+		<property name="refreshConf" column="RefreshConf"></property>
+		<property name="wheelConf" column="WheelConf"></property>
+		<property name="morningTime" column="MorningTime"></property>
+		<property name="nightTime" column="NightTime"></property>
+		<property name="noonTime" column="NoonTime"></property>
+		<property name="timeoutDrug" column="TimeoutDrug"></property>
+		<property name="timeoutPlan" column="TimeoutPlan"></property>
+	</class>
+</hibernate-mapping>
+
+
+
+
+

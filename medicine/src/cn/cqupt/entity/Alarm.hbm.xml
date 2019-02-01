@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!-- 1 配置类和表对应 
+		class标签
+		name属性：实体类全路径
+		table属性：数据库表名称
+	-->
+	<class name="cn.cqupt.entity.Alarm" table="alarm">
+		<id name="alarmId" column="AlarmId">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="alarmTime" column="AlarmTime"></property>
+		<property name="alarmType" column="AlarmType"></property>
+		<!-- 表示告警所属位所属科室-->
+		<many-to-one name="dep" class="cn.cqupt.entity.Dep" column="DepId" ></many-to-one>
+		<!-- 表示告警下所属病人 -->
+		<many-to-one name="patient" class="cn.cqupt.entity.Patient" column="PatientId"></many-to-one>
+		<!-- 表示告警所属床位-->
+		<many-to-one name="bed" class="cn.cqupt.entity.Bed" column="BedId"></many-to-one>
+		<!-- 表示告警所属计划 -->
+		<many-to-one name="plan" class="cn.cqupt.entity.Plan" column="PlanID"></many-to-one>
+	</class>
+</hibernate-mapping>
+
+
+
+
+

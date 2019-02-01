@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!-- 1 配置类和表对应 
+		class标签
+		name属性：实体类全路径
+		table属性：数据库表名称
+	-->
+	<class name="cn.cqupt.entity.Bed" table="bed">
+		<id name="bedId" column="BedId">
+			<generator class="native"></generator>
+		</id>
+		<property name="bedNumber" column="BedNumber"></property>
+		<property name="caseMac" column="CaseMac"></property>
+		<property name="useState" column="UseState"></property>
+		<property name="caseSate" column="CaseSate"></property>
+		
+		<!-- 表示改床位所属科室-->
+		<many-to-one name="dep" class="cn.cqupt.entity.Dep" column="DepId" ></many-to-one>
+		<!-- 表示床位下所属病人 -->
+		<one-to-one name="patient" class="cn.cqupt.entity.Patient" property-ref="bed"></one-to-one>
+		<!-- 表示床位下捆绑计划 -->
+		<set name="setPlan" inverse="false">
+			<key column="BedId"></key>
+			<one-to-many class="cn.cqupt.entity.Plan"/>
+		</set>
+		<!-- 表示床位下捆绑告警 -->
+		<set name="setAlarm" inverse="false">
+			<key column="BedId"></key>
+			<one-to-many class="cn.cqupt.entity.Alarm"/>
+		</set>
+	</class>
+</hibernate-mapping>
+
+
+
+
+

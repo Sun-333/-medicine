@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- 配置c3p0连接池 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mysql:///medicine"></property>
+		<property name="user" value="root"></property>
+		<property name="password" value="sunyushan123"></property>
+	</bean>
+	
+	<!-- sessionfactory创建 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocations" value="classpath:hibernate.cfg.xml"></property>
+	</bean>
+	<!-- Aop的创建 -->
+	<bean id="controllerAop" class="Util.ControllerAOP" />
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+ 	<aop:config>
+		<aop:pointcut expression="execution(* cn.cqupt.service.UserService.*(..))" id="pointcut1"/>
+		<aop:pointcut expression="execution(* cn.cqupt.service.DepService.*(..))" id="pointcut2"/>
+		<aop:pointcut expression="execution(* cn.cqupt.service.RoleService.*(..))" id="pointcut3"/>
+		<aop:pointcut expression="execution(* cn.cqupt.service.PatientService.*(..))" id="pointcut4"/>
+		<aop:pointcut expression="execution(* cn.cqupt.service.PasPatientService.*(..))" id="pointcut5"/>
+		<aop:pointcut expression="execution(* cn.cqupt.service.PlanService.*(..))" id="pointcut6"/>
+		<aop:pointcut expression="execution(* cn.cqupt.service.AlarmService.*(..))" id="pointcut7"/>
+		<aop:pointcut expression="execution(* cn.cqupt.service.BedService.*(..))" id="pointcut8"/>
+		<aop:pointcut expression="execution(* cn.cqupt.service.ConfigService.*(..))" id="pointcut9"/>
+		<aop:pointcut expression="execution(* cn.cqupt.service.PasAlarmService.*(..))" id="pointcut10"/>
+		<aop:pointcut expression="execution(* cn.cqupt.service.PlanConstantService.*(..))" id="pointcut11"/>
+		<aop:pointcut expression="execution(* cn.cqupt.service.UserTokenService.*(..))" id="pointcut12"/>
+		<aop:pointcut expression="execution(* cn.cqupt.service.IllnessService.*(..))" id="pointcut13"/>
+		<aop:pointcut expression="execution(* cn.cqupt.service.DoctorTelService.*(..))" id="pointcut14"/>
+		<aop:pointcut expression="execution(* cn.cqupt.service.TempDoctorTelService.*(..))" id="pointcut15"/>
+		<aop:pointcut expression="execution(* cn.cqupt.service.MedicineInfService.*(..))" id="pointcut16"/>
+		<aop:aspect ref="controllerAop">
+			<aop:around method="handlerControllerMethod" pointcut-ref="pointcut1"/>
+			<aop:around method="handlerControllerMethod" pointcut-ref="pointcut2"/>
+			<aop:around method="handlerControllerMethod" pointcut-ref="pointcut3"/>
+		<aop:around method="handlerControllerMethod" pointcut-ref="pointcut4"/>
+			<aop:around method="handlerControllerMethod" pointcut-ref="pointcut5"/>
+			<aop:around method="handlerControllerMethod" pointcut-ref="pointcut6"/>
+			<aop:around method="handlerControllerMethod" pointcut-ref="pointcut7"/>
+			<aop:around method="handlerControllerMethod" pointcut-ref="pointcut8"/>
+			<aop:around method="handlerControllerMethod" pointcut-ref="pointcut9"/>
+			<aop:around method="handlerControllerMethod" pointcut-ref="pointcut10"/>
+			<aop:around method="handlerControllerMethod" pointcut-ref="pointcut11"/>
+			<aop:around method="handlerControllerMethod" pointcut-ref="pointcut13"/>
+			<aop:around method="handlerControllerMethod" pointcut-ref="pointcut14"/>
+			<aop:around method="handlerControllerMethod" pointcut-ref="pointcut15"/>
+			<aop:around method="handlerControllerMethod" pointcut-ref="pointcut16"/>
+		</aop:aspect> 
+	</aop:config> 
+	 	
+	<!-- 事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	
+	<bean id="userAction" class="cn.cqupt.action.UserAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	
+	<bean id="userService" class="cn.cqupt.service.UserService">
+		<property name="userDao" ref="userDaoImpl"></property>
+		<property name="userTokenService" ref="userTokenService"></property>
+		<property name="planDao" ref="planDaoImpl"></property>
+		<property name="roleDao" ref="roleDaoImpl"></property>
+		<property name="depDao" ref="depDaoImpl"></property>
+	</bean>
+	
+	<bean id="userDaoImpl" class="cn.cqupt.dao.UserDaoImp">
+		<!-- <property name="hibernateTemplate" ref="hibernateTemplate"></property> -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean> -->
+	
+	<bean id="autoMachineService" class="cn.cqupt.service.AutoMachineService">
+		<property name="patientDao" ref="patientDaoImp"></property>
+		<property name="planDao" ref="planDaoImpl"></property>
+		<property name="pasAlarmDao" ref="pasAlarmDaoImp"></property>
+		<property name="alarmDao" ref="alarmDaoImpl"></property>
+	</bean>
+	
+	
+	<import resource="classpath:Dep.xml"/>
+	<import resource="classpath:Role.xml"/>
+	<import resource="classpath:Config.xml"/>
+	<import resource="classpath:Bed.xml"/>
+	<import resource="classpath:Patient.xml"/>
+	<import resource="classpath:UserToken.xml"/>
+	<import resource="classpath:Plan.xml"/>
+	<import resource="classpath:PlanConstant.xml"/>
+	<import resource="classpath:Alarm.xml"/>
+	<import resource="classpath:PasAlarm.xml"/>
+	<import resource="classpath:PasPatient.xml"/>
+	<import resource="classpath:BedChange.xml"/>
+	<import resource="classpath:Illness.xml"/>
+	<import resource="classpath:DoctorTel.xml"/>
+	<import resource="classpath:TempDoctorTel.xml"/>
+	<import resource="classpath:PasDoctorTel.xml"/>
+	<import resource="classpath:Medicine.xml"/>
+	<import resource="classpath:MedicineInf.xml"/>
+	<import resource="classpath:Upload.xml"/>
+	<import resource="classpath:Templet.xml"/>
+</beans>
+
+
+
+
+
+
+
+
+
+

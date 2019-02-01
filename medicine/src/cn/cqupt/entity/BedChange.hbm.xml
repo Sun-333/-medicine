@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!-- 1 配置类和表对应 
+		class标签
+		name属性：实体类全路径
+		table属性：数据库表名称
+	-->
+	<class name="cn.cqupt.entity.BedChange" table="bedchange">
+		<id name="bedchangId" column="BedchangId">
+			<generator class="native"></generator>
+		</id>
+		<property name="bedId" column="BedId"></property>
+		<property name="patientId" column="PatientId"></property>
+		<property name="bedNumber" column="BedNumber"></property>
+		<property name="excutePersonName" column="ExcutePersonName"></property>
+		<property name="excutePersonId" column="ExcutePersonId"></property>
+		<property name="time" column="Time"></property>
+	
+		
+	</class>
+</hibernate-mapping>
+
+
+
+
+

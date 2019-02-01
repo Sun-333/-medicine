@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!-- 1 配置类和表对应 
+		class标签
+		name属性：实体类全路径
+		table属性：数据库表名称
+	-->
+	<class name="cn.cqupt.entity.PasDoctorTel" table="pasdoctorTel">
+		<id name="pasDoctorTelId" column="PasDoctorTelId">
+			<generator class="native"></generator>
+		</id>
+		<property name="sendTime" column="SendTime"></property>
+		<property name="sendDoctor" column="SendDoctor"></property>
+		<property name="beginTime" column="BeginTime"></property>
+		<property name="endTime" column="EndTime"></property>
+		<property name="state" column="State"></property>
+		<property name="medicine" column="Medicine"></property>
+		<property name="quantity" column="Quantity"></property>
+		<property name="frequence" column="Frequence"></property>
+		<property name="detail" column="Detail"></property>
+		<property name="excuteTimes" column="ExcuteTimes"></property>
+		<property name="eatType" column="EatType"></property>
+		
+		<property name="excuteTime" column="ExcuteTime"></property>
+		<property name="excuteNurseId" column="ExcuteNurseId"></property>
+		<property name="excuteNurseName" column="excuteNurseName"></property>
+		
+		<property name="patientName" column="patientName"></property>
+	</class>
+</hibernate-mapping>
+
+
+
+
+

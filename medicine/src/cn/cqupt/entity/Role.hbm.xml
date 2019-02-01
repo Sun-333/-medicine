@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!-- 1 配置类和表对应 
+		class标签
+		name属性：实体类全路径
+		table属性：数据库表名称
+	-->
+	<class name="cn.cqupt.entity.Role" table="role">
+		<id name="roleId" column="roleId">
+			<generator class="native"></generator>
+		</id>
+		<property name="roleName" column="RoleName"></property>
+		<property name="roleDetail" column="RoleDetail"></property>
+		<property name="rolePerm" column="RolePerm"></property>
+		
+		
+		<!-- 表示角色下所有账号 -->
+		<set name="setUser" inverse="false">
+			<key column="RoleId"></key>
+			<one-to-many class="cn.cqupt.entity.User"/>
+		</set>
+		
+		
+	</class>
+</hibernate-mapping>
+
+
+
+
+

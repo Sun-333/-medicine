@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	
+	<!-- 设置上传文件大小 -->
+	<!-- <constant name="struts.multipart.maxSize" value="2097152"></constant> -->
+	<constant name="struts.multipart.saveDir" value="/upload"/>
+	
+	
+	<package name="demo1" extends="struts-default" namespace="/">
+		<action name="user_*" class="userAction" method="{1}">
+		</action>
+		<action name="dep_*" class="depAction" method="{1}">
+		</action>
+		<action name="role_*" class="roleAction" method="{1}">
+		</action>
+		<action name="conf_*" class="configAction" method="{1}">
+		</action>
+		<action name="bed_*" class="bedAction" method="{1}"></action>
+		<action name="patient_*" class="patientAction" method="{1}"></action>
+		<action name="plan_*" class="planAction" method="{1}"></action>
+		<action name="alarm_*" class="alarmAction" method="{1}"></action>
+		<action name="pasAlarm_*" class="pasAlarmAction" method="{1}"></action>
+		<action name="illness_*" class="illnessAction" method="{1}"></action>
+		<action name="doctorTel_*" class="doctorTelAction" method="{1}"></action>
+		<action name="tempDoctorTel_*" class="tempDoctorTelAction" method="{1}"></action>
+		<action name="medicine_*" class="medicineAction" method="{1}"></action>
+		<action name="medicineInf_*" class="medicineInfAction" method="{1}"></action>
+		<action name="templet_*" class="templetAction" method="{1}"></action>
+		
+		
+		 <action  name ="upLoad_*" class = "upLoadAction" method="{1}">
+
+          <!-- 第二种方式:通过给fileUpload的拦截器注入参数的形式，控制上传文件的大小
+          无法使用   <param name="fileUpload.maximumSize">31457280</param>-->
+ 	     <interceptor-ref name="defaultStack">
+ 	        <!-- 限制上传文件的扩展名。如果有多个，使用逗号分隔
+  	        <param name="fileUpload.allowedExtensions">jpg,png,bmp</param>-->
+	        <!-- 限制上传文件的MIME类型。 如果有多个，使用逗号分隔 -->
+            
+	     </interceptor-ref>
+	     <result>/index.jsp</result>
+	     <result name="input" type="redirect">/upload.jsp</result>
+	  </action>
+	  
+	</package>
+	
+</struts>
+
+
+

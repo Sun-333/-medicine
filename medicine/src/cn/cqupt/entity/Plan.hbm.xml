@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!-- 1 配置类和表对应 
+		class标签
+		name属性：实体类全路径
+		table属性：数据库表名称
+	-->
+	<class name="cn.cqupt.entity.Plan" table="plan">
+		<id name="planId" column="PlanId">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="planState" column="PlanState"></property>
+		<property name="planTime" column="PlanTime"></property>
+		<property name="excuteTime" column="ExcuteTime"></property>
+		<property name="excuteNurseId" column="ExcuteNurseId"></property>
+		<property name="excuteNurseName" column="ExcuteNurseName"></property>
+		<property name="releaseNurseId" column="ReleaseNurseId"></property>
+		<property name="releaseNurseName" column="ReleaseNurseName"></property>
+		<property name="planBeginTime" column="PlanBeginTime"></property>
+		<property name="planEndTime" column="PlanEndTime"></property>
+		<property name="planType" column="PlanType"></property>
+		<!-- 表示计划捆绑科室 -->
+		<many-to-one name="dep" class="cn.cqupt.entity.Dep" column="DepId"></many-to-one>
+		<!-- 表示计划捆绑病人 -->
+		<many-to-one name="patient" class="cn.cqupt.entity.Patient" column="PatientId"></many-to-one>
+		<!-- 表示计划捆绑床位 -->
+		<many-to-one name="bed" class="cn.cqupt.entity.Bed" column="BedId"></many-to-one>
+		<!-- 表示病人下对应很多计划 -->
+		<set name="setAlarm" inverse="false">
+			<key column="PlanId"></key>
+			<one-to-many class="cn.cqupt.entity.Alarm"/>
+		</set>
+	</class>
+</hibernate-mapping>

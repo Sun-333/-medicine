@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<bean id="tempDoctorTelAction" class="cn.cqupt.action.TempDoctorTelAction" scope="prototype">
+		<property name="tempDoctorTelService" ref="tempDoctorTelService"></property>
+		<property name="doctorTelService" ref="doctorTelService"></property>
+	</bean>
+	
+	<bean id="tempDoctorTelService" class="cn.cqupt.service.TempDoctorTelService">
+		<property name="tempDoctorTelDao" ref="tempDoctorTelDaoImp"></property>
+		<property name="doctorTelService" ref="doctorTelService"></property>
+		<property name="patientDao" ref="patientDaoImp"></property>
+		<property name="doctorTelDao" ref="doctorTelDaoImp"></property>
+	</bean>
+	
+	<bean id="tempDoctorTelDaoImp" class="cn.cqupt.dao.TempDoctorTelDaoImp">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+</beans>
+
+
+
+
+
+
+
+
+
+

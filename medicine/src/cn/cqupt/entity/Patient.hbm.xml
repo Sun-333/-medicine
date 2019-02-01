@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!-- 1 配置类和表对应 
+		class标签
+		name属性：实体类全路径
+		table属性：数据库表名称
+	-->
+	<class name="cn.cqupt.entity.Patient" table="patient">
+		<id name="patientId" column="PatientId">
+			<generator class="native"></generator>
+		</id>
+		<!-- 配置病人基础信息 -->
+		<property name="patientName" column="PatientName"></property>
+		<property name="patientAge" column="PatientAge"></property>
+		<property name="patientSex" column="PatientSex"></property>
+		<property name="admissionTime" column="AdmissionTime"></property>
+		<property name="idCardNumber" column="IdCardNumber"></property>
+		<property name="patientAddress" column="PatientAddress"></property>
+		<property name="patientTel" column="PatientTel"></property>
+		<!-- 配置病人特征信息 -->
+		<property name="attendingDoctor" column="AttendingDoctor"></property>
+		<property name="hospitalId" column="HospitalId"></property>
+		<property name="diagnose" column="Diagnose"></property>
+		<property name="level" column="Level"></property>
+		<property name="diet" column="Diet"></property>
+		<property name="allergichHistory" column="AllergichHistory"></property>
+		<property name="allergic" column="Allergic"></property>
+		<property name="newPatient" column="NewPatient"></property>
+		<property name="hyperthermia" column="Hyperthermia"></property>
+		<property name="operation" column="Operation"></property>
+		<!-- 配置病人医保信息 -->
+		<property name="healthCareNumber" column="HealthCareNumber"></property>
+		<property name="healthCareType" column="HealthCareType"></property>
+		<property name="totalMoney" column="TotalMoney"></property>
+		<property name="personPayMoney" column="PersonPayMoney"></property>
+		<property name="payMoney" column="payMoney"></property>
+		<!-- 配置病人服药计划 -->
+		<property name="totalTimes" column="TotalTimes"></property>
+		<property name="timeoutDisTimes" column="TimeoutDisTimes"></property>
+		<property name="timeoutEatTimes" column="TimeoutEatTimes"></property>
+		<property name="planState" column="PlanState"></property>
+		<!--表示病人所属科室-->
+		<many-to-one name="dep" class="cn.cqupt.entity.Dep" column="DepId"></many-to-one>
+		<!-- 表示病人对应床位 -->
+		<!-- <one-to-one name="bed" class="cn.cqupt.entity.Bed" property-ref="patient"></one-to-one> -->
+		<many-to-one name="bed" class="cn.cqupt.entity.Bed" column="BedId" unique="true"></many-to-one>
+		<!-- 表示病人下对应很多计划 -->
+		<set name="setPlan" inverse="false">
+			<key column="PatientId"></key>
+			<one-to-many class="cn.cqupt.entity.Plan"/>
+		</set>
+		<!-- 表示病人下对应很多计划 -->
+		<set name="setAlarm" inverse="false">
+			<key column="PatientId"></key>
+			<one-to-many class="cn.cqupt.entity.Alarm"/>
+		</set>
+		<!-- 表示病床下有很多医嘱 -->
+		<set name="setDoctorTel" inverse="false">
+			<key column="PatientId"></key>
+			<one-to-many class="cn.cqupt.entity.DoctorTel"/>
+		</set>
+		
+		<!-- 表示病床下有很多医嘱 -->
+		<set name="setTempDoctorTel" inverse="false">
+			<key column="PatientId"></key>
+			<one-to-many class="cn.cqupt.entity.TemporaryDoctorTel"/>
+		</set>
+	</class>
+</hibernate-mapping>
+
+
+
+
+

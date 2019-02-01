@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!-- 1 配置类和表对应 
+		class标签
+		name属性：实体类全路径
+		table属性：数据库表名称
+	-->
+	<class name="cn.cqupt.entity.Dep" table="department">
+		<id name="depId" column="DepId">
+			<generator class="native"></generator>
+		</id>
+		<property name="depName" column="DepName"></property>
+		<property name="bedMaxCnt" column="BedMaxCnt"></property>
+		<property name="depDetail" column="DepDetail"></property>
+		
+		<!-- 表示部门下所有的账号-->
+		<set name="setUser" inverse="false">
+			<key column="DepId"></key>
+			<one-to-many class="cn.cqupt.entity.User"/>
+		</set>
+		<!-- 表示部门下有很多床位 -->
+		<set name="setBed" inverse="false">
+			<key column="DepId"></key>
+			<one-to-many class="cn.cqupt.entity.Bed"/>
+		</set>
+		<!-- 表示科室下有很对病人 -->
+		<set name="setPatient" inverse="false">
+			<key column="DepId"></key>
+			<one-to-many class="cn.cqupt.entity.Patient"/>
+		</set>
+		<!-- 表示部门下对应很多计划 -->
+		<set name="setPlan" inverse="false">
+			<key column="DepId"></key>
+			<one-to-many class="cn.cqupt.entity.Plan"/>
+		</set>
+		<!-- 表示部门下对应很多告警 -->
+		<set name="setAlarm" inverse="false">
+			<key column="DepId"></key>
+			<one-to-many class="cn.cqupt.entity.Alarm"/>
+		</set>
+	</class>
+</hibernate-mapping>
+
+
+
+
+

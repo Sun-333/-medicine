@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!-- 1 配置类和表对应 
+		class标签
+		name属性：实体类全路径
+		table属性：数据库表名称
+	-->
+	<class name="cn.cqupt.entity.PasAlarm" table="pasAlarm">
+		<id name="alarmId" column="AlarmId">
+			<generator class="assigned"></generator>
+		</id>
+		<!-- 配置病人基础信息 -->
+		<property name="hospitalId" column="HospitalId"></property>
+		<property name="planId" column="PlanId"></property>
+		<property name="alarmType" column="AlarmType"></property>
+		<property name="patientName" column="PatientName"></property>
+		<property name="alarmTime" column="AlarmTime"></property>
+		<property name="handlePerson" column="HandlePerson"></property>
+		<property name="handleTime" column="HandleTime"></property>
+		<property name="handleReason" column="HandleReason"></property>
+		<property name="depName" column="DepName"></property>
+		<property name="bedNumber" column="bedNumber"></property>
+	</class>
+</hibernate-mapping>
+
+
+
+
+
